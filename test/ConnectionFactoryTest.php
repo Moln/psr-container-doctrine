@@ -65,7 +65,8 @@ final class ConnectionFactoryTest extends TestCase
         // connection without a username and password. Since that can't work, we just verify that we get an exception
         // with the right backtrace, and test the other defaults with a pure memory-database later.
         try {
-            $factory($container);
+            $connection = $factory($container);
+            $connection->ping();
         } catch (ConnectionException $e) {
             foreach ($e->getTrace() as $entry) {
                 if ($entry['class'] === PDOMySQLDriver::class) {
